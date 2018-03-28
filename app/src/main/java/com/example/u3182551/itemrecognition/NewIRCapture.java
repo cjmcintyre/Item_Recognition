@@ -54,23 +54,22 @@ public class NewIRCapture extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ircapture);
 
-        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cattest);
-        ImageView imageView = findViewById(R.id.imageView);
-
         Button btnProcess = findViewById(R.id.btnProcess);
 
-        imageView.setImageBitmap(mBitmap);
-
         // Converting the image
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-        final ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+
 
         btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                final ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+
+
                 final AsyncTask<InputStream, String, String> visionTask = new AsyncTask<InputStream, String, String>() {
                     ProgressDialog mDialog = new ProgressDialog(NewIRCapture.this);
+
 
                     @Override
                     protected String doInBackground(InputStream... params) {
@@ -112,8 +111,8 @@ public class NewIRCapture extends AppCompatActivity {
                     protected void onProgressUpdate(String... values) {
                         mDialog.setMessage(values[0]);
                     }
-                };
 
+                };
                 visionTask.execute(inputStream);
             }
         });
