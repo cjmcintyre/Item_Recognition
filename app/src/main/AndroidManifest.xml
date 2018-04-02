@@ -3,8 +3,8 @@
     package="com.example.u3182551.itemrecognition">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +22,11 @@
         </activity>
         <activity android:name=".ListViewActivity" />
         <activity android:name=".IRActivity" />
-        <activity android:name=".NewIRCapture"></activity>
+        <activity android:name=".NewIRCapture" />
+        <activity android:name=".LoadImage" />
+        <activity android:name=".PostLoadImage" />
+        <activity android:name=".CaptureImage" />
+        <activity android:name=".PostCaptureImage"></activity>
     </application>
 
 </manifest>

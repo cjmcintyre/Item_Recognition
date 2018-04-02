@@ -25,9 +25,9 @@ public class ListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
-       // events.add(new ItemsRecognized("Test1", R.drawable.placeholder));
-       // events.add(new ItemsRecognized("Test2", R.drawable.placeholder));
-       // events.add(new ItemsRecognized("Test3", R.drawable.placeholder));
+        // events.add(new ItemsRecognized("Test1", R.drawable.placeholder));
+        // events.add(new ItemsRecognized("Test2", R.drawable.placeholder));
+        // events.add(new ItemsRecognized("Test3", R.drawable.placeholder));
 
         events = mydb.getAllEvents();
         if (events.isEmpty()) {
@@ -39,7 +39,7 @@ public class ListViewActivity extends AppCompatActivity {
 
 
 
-    //    ArrayAdapter<ItemsRecognized> adapter = new ArrayAdapter<ItemsRecognized>(this, android.R.layout.simple_list_item_1, events);
+        //    ArrayAdapter<ItemsRecognized> adapter = new ArrayAdapter<ItemsRecognized>(this, android.R.layout.simple_list_item_1, events);
         IRAdapter adapter = new IRAdapter(this, R.layout.activity_listview_item, events);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
