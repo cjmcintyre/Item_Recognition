@@ -30,9 +30,6 @@ import java.io.InputStream;
 
 public class LoadImage extends NewIRCapture {
     protected Uri mImageUri;
-    private String selectedName;
-    private int selectedID;
-
     protected Bitmap mBitmap;
     protected static final int REQUEST_SELECT_IMAGE_IN_ALBUM = 1;
     IRListDbHelper mDatabaseHelper;
@@ -105,13 +102,13 @@ public class LoadImage extends NewIRCapture {
             @Override
             public void onPostExecute(String s) {
 
-                setContentView(R.layout.activity_ir_edit);
+                setContentView(R.layout.activity_post_load_image);
 
 
                 mDialog.dismiss();
 
                 AnalysisResult result = new Gson().fromJson(s, AnalysisResult.class);
-                TextView textView = findViewById(R.id.edit_description);
+                TextView textView = findViewById(R.id.PostLoadText);
                 StringBuilder stringBuilder = new StringBuilder();
 
                 for (Caption caption : result.description.captions) {
@@ -122,7 +119,9 @@ public class LoadImage extends NewIRCapture {
                 }
                 textView.setText(stringBuilder);
 
+
             }
+
 
             public void addData(String newEntry) {
 
@@ -144,16 +143,36 @@ public class LoadImage extends NewIRCapture {
         visionTask.execute(inputStream);
     }
 
+
+/*
+
+    public void SaveData(View v) {
+        setContentView(R.layout.activity_post_load_image);
+        TextView textView = findViewById(R.id.PostLoadText);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        textView.setText(stringBuilder);
+
+    }
+*/
+
+
     private void toastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
 
     public void EditData(View v) {
-        Intent intent = new Intent(this, EditDataActivity.class);
-        startActivity(intent);
+        Button LoadbtnEdit;
 
+        LoadbtnEdit = (Button) findViewById(R.id.LoadbtnEdit);
+        LoadbtnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent editScreenIntent = new Intent(LoadImage.this, EditDataActivity.class);
+                startActivity(editScreenIntent);
+            }
+        });
     }
 
 }
-

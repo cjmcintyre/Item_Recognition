@@ -16,6 +16,5 @@ public class PostLoadImage extends NewIRCapture {
         setContentView(R.layout.activity_post_load_image);
 
 
-
     }
 }
