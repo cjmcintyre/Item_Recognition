@@ -19,9 +19,9 @@ public class EditDataActivity extends AppCompatActivity {
     private EditText edit_title;
 
     IRListDbHelper mDatabaseHelper;
-
+    private String description;
     private String selectedName;
-    private int selectedID;
+    private long selectedID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,22 +35,23 @@ public class EditDataActivity extends AppCompatActivity {
 
         //get the intent extra from the ListDataActivity
         Intent receivedIntent = getIntent();
-
+        Bundle bundle = getIntent().getExtras();
+        description = bundle.getString("imageDescription");
         //now get the itemID we passed as an extra
-        selectedID = receivedIntent.getIntExtra("id",-1); //NOTE: -1 is just the default value
+        selectedID = bundle.getLong("dbId"); //NOTE: -1 is just the default value
 
         //now get the name we passed as an extra
         selectedName = receivedIntent.getStringExtra("name");
 
         //set the text to show the current selected name
-        edit_description.setText(selectedName);
+        edit_description.setText(description);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String item = edit_description.getText().toString();
                 if(!item.equals("")){
-                    mDatabaseHelper.updateName(item,selectedID,selectedName);
+                    mDatabaseHelper.updateName(item,selectedID,description);
                     toastMessage("Data Successfully Saved");
                     Intent backtoListView = new Intent(EditDataActivity.this, ListViewActivity.class);
                     startActivity(backtoListView);
@@ -64,7 +65,7 @@ public class EditDataActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDatabaseHelper.deleteName(selectedID,selectedName);
+                mDatabaseHelper.deleteName(selectedID,description);
                 edit_description.setText("");
                 toastMessage("removed from database");
 

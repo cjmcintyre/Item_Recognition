@@ -2,6 +2,7 @@ package com.example.u3182551.itemrecognition;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.microsoft.projectoxford.vision.contract.AnalysisResult;
 import com.microsoft.projectoxford.vision.contract.Caption;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,6 +36,7 @@ public class LoadImage extends NewIRCapture {
     protected Bitmap mBitmap;
     protected static final int REQUEST_SELECT_IMAGE_IN_ALBUM = 1;
     IRListDbHelper mDatabaseHelper;
+    long dbId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,10 +129,11 @@ public class LoadImage extends NewIRCapture {
 
             public void addData(String newEntry) {
 
-                boolean insertData = mDatabaseHelper.addData(newEntry);
-
-                if (insertData) {
+                //boolean insertData = mDatabaseHelper.addData(newEntry);
+                long insertId = mDatabaseHelper.addData(newEntry);
+                if (insertId > -1) {
                     toastMessage("Data Successfully Inserted!");
+                    dbId=insertId;
                 } else {
                     toastMessage("Something went wrong");
                 }
@@ -170,6 +175,12 @@ public class LoadImage extends NewIRCapture {
             @Override
             public void onClick(View view) {
                 Intent editScreenIntent = new Intent(LoadImage.this, EditDataActivity.class);
+                TextView description = (TextView) findViewById(R.id.PostLoadText);
+
+
+                //     Integer testId =cursor.getInt(cursor.getColumnIndex("ID"));
+                editScreenIntent.putExtra("dbId",dbId);
+                editScreenIntent.putExtra("imageDescription",description.getText());
                 startActivity(editScreenIntent);
             }
         });

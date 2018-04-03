@@ -15,13 +15,17 @@ import java.util.ArrayList;
  * Created by corey on 26/03/2018.
  */
 
-public class IRAdapter extends ArrayAdapter<ItemsRecognized> {
+public class IRAdapter extends ArrayAdapter<Images> {
 
-    ArrayList<ItemsRecognized> events;
+    ArrayList<Images> images = new ArrayList<>();
+    private  Context mContext;
+    private int clickItem;
 
-    public IRAdapter(Context context, int resource, ArrayList<ItemsRecognized> objects) {
-        super(context, resource, objects);
-        events = objects;
+    public IRAdapter(Context context, int resource, ArrayList<Images> objects) {
+        super(context,resource,objects);
+        images = objects;
+        mContext = context;
+        clickItem = resource;
     }
 
     @Override
@@ -34,17 +38,17 @@ public class IRAdapter extends ArrayAdapter<ItemsRecognized> {
 
         if (position % 2 == 0) convertView.setBackgroundColor(Color.parseColor("#ccffff"));
         else
-            {
+        {
             convertView.setBackgroundColor(Color.parseColor("#ffffe6"));
         }
 
-        ItemsRecognized event = events.get(position);
+        Images event = images.get(position);
 
         ImageView icon = (ImageView) convertView.findViewById(R.id.imageViewIcon);
         icon.setImageResource(R.mipmap.ic_launcher);
 
         TextView title = (TextView) convertView.findViewById(R.id.textViewTitle);
-        title.setText(event.getTitle());
+        title.setText(event.getName());
 
         return convertView;
     }

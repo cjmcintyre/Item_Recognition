@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.media.Image;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -42,38 +43,48 @@ public class IRListDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String item) {
+    public long addData(String item) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_TITLE, item);
 
         Log.d(TAG, "addData: Adding " + item + " to " + TABLE_NAME);
-        long result = db.insert(TABLE_NAME, null, contentValues);
-
-        if (result == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        long result = db.insertOrThrow(TABLE_NAME, null, contentValues);
+        return result;
+//        if (result == -1) {
+//            return false;
+//        } else {
+//            return true;
+//        }
     }
 
-    public Cursor getData(){
+    public ArrayList<Images> getData() {
         SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<Images> imageList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NAME;
         Cursor data = db.rawQuery(query, null);
-        return data;
+        data.moveToFirst();
+        while (!data.isAfterLast()) {
+            Images image = new Images();
+            image.setName(data.getString(data.getColumnIndex(COLUMN_TITLE)));
+            image.setId(data.getInt(0));
+            imageList.add(image);
+            data.moveToNext();
+        }
+        return  imageList;
     }
 
     public Cursor getItemID(String name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_NAME +
-                " WHERE " + COLUMN_TITLE + " = '" + name + "'";
+                " WHERE " + COLUMN_TITLE + " = '" + name + "' LIMIT 1 ";
         Cursor data = db.rawQuery(query, null);
+        //Integer id = data.getInt(0);
         return data;
     }
 
 
-    public void updateName(String newName, int id, String oldName) {
+    public void updateName(String newName, long id, String oldName) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE " + TABLE_NAME + " SET " + COLUMN_TITLE +
                 " = '" + newName + "' WHERE " + COLUMN_ID + " = '" + id + "'" +
@@ -83,7 +94,7 @@ public class IRListDbHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public void deleteName(int id, String name){
+    public void deleteName(long id, String name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME + " WHERE "
                 + COLUMN_ID + " = '" + id + "'" +
