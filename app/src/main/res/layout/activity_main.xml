@@ -21,7 +21,7 @@
         android:padding="15dp"
         android:text="Item Recognition"
         android:textSize="34dp"
-        app:layout_constraintBottom_toTopOf="@+id/postloadImage"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
-        android:id="@+id/postloadImage"
+        android:id="@+id/imageViewer"
         android:layout_width="0dp"
         android:layout_height="301dp"
         android:layout_marginBottom="16dp"
@@ -72,6 +72,6 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postloadImage" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewer" />
 
 </android.support.constraint.ConstraintLayout>

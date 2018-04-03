@@ -1,13 +1,21 @@
 package com.example.u3182551.itemrecognition;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.content.Intent;
 
-public class PostLoadImage extends AppCompatActivity {
+import android.os.Bundle;
+import android.view.View;
+
+
+public class PostLoadImage extends NewIRCapture {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_load_image);
+
+
+
     }
 }

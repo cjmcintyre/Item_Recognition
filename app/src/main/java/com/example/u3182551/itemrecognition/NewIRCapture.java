@@ -24,10 +24,6 @@ import java.io.InputStream;
 
 
 public class NewIRCapture extends AppCompatActivity {
-    protected Uri mImageUri;
-    protected Bitmap mBitmap;
-    protected static final int REQUEST_TAKE_PHOTO = 0;
-    protected static final int REQUEST_SELECT_IMAGE_IN_ALBUM = 1;
 
     public VisionServiceClient visionServiceClient = new VisionServiceRestClient("1caf0086471f49d08693b33a8d3e261b", "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0");
 

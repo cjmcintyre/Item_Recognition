@@ -6,8 +6,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.microsoft.projectoxford.vision.contract.AnalysisResult;
@@ -25,15 +29,20 @@ import java.io.InputStream;
 
 
 public class LoadImage extends NewIRCapture {
-
     protected Uri mImageUri;
+    private String selectedName;
+    private int selectedID;
+
     protected Bitmap mBitmap;
     protected static final int REQUEST_SELECT_IMAGE_IN_ALBUM = 1;
+    IRListDbHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_image);
+        mDatabaseHelper = new IRListDbHelper(this);
+
 
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -41,7 +50,9 @@ public class LoadImage extends NewIRCapture {
             startActivityForResult(intent, REQUEST_SELECT_IMAGE_IN_ALBUM);
 
         }
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -57,11 +68,10 @@ public class LoadImage extends NewIRCapture {
             ImageView imageView = (ImageView) findViewById(R.id.postloadImage);
             imageView.setImageBitmap(mBitmap);
             doAnalyse();
-
         }
     }
 
-    public void doAnalyse(){
+    public void doAnalyse() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
@@ -69,7 +79,6 @@ public class LoadImage extends NewIRCapture {
 
         final AsyncTask<InputStream, String, String> visionTask = new AsyncTask<InputStream, String, String>() {
             ProgressDialog mDialog = new ProgressDialog(LoadImage.this);
-
 
             @Override
             protected String doInBackground(InputStream... params) {
@@ -96,19 +105,34 @@ public class LoadImage extends NewIRCapture {
             @Override
             public void onPostExecute(String s) {
 
-                setContentView(R.layout.activity_post_load_image);
+                setContentView(R.layout.activity_ir_edit);
 
 
                 mDialog.dismiss();
 
                 AnalysisResult result = new Gson().fromJson(s, AnalysisResult.class);
-                TextView textView = findViewById(R.id.PostLoadText);
+                TextView textView = findViewById(R.id.edit_description);
                 StringBuilder stringBuilder = new StringBuilder();
 
                 for (Caption caption : result.description.captions) {
                     stringBuilder.append(caption.text);
+                    String newEntry = (caption.text);
+                    addData(newEntry);
+
                 }
                 textView.setText(stringBuilder);
+
+            }
+
+            public void addData(String newEntry) {
+
+                boolean insertData = mDatabaseHelper.addData(newEntry);
+
+                if (insertData) {
+                    toastMessage("Data Successfully Inserted!");
+                } else {
+                    toastMessage("Something went wrong");
+                }
             }
 
             @Override
@@ -119,4 +143,17 @@ public class LoadImage extends NewIRCapture {
         };
         visionTask.execute(inputStream);
     }
+
+    private void toastMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void EditData(View v) {
+        Intent intent = new Intent(this, EditDataActivity.class);
+        startActivity(intent);
+
+    }
+
 }
+

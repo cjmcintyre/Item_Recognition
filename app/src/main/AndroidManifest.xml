@@ -26,7 +26,8 @@
         <activity android:name=".LoadImage" />
         <activity android:name=".PostLoadImage" />
         <activity android:name=".CaptureImage" />
-        <activity android:name=".PostCaptureImage"></activity>
+        <activity android:name=".PostCaptureImage"/>
+        <activity android:name=".EditDataActivity"/>
     </application>
 
 </manifest>
