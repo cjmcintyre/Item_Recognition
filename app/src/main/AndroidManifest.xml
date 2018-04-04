@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.u3182551.itemrecognition">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +13,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +24,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListViewActivity" />
-        <activity android:name=".IRActivity" />
         <activity android:name=".NewIRCapture" />
-        <activity android:name=".Image_Handling.LoadImage" />
-        <activity android:name=".Image_Handling.PostLoadImage" />
-        <activity android:name=".Image_Handling.CaptureImage" />
-        <activity android:name=".Image_Handling.PostCaptureImage"/>
+        <activity android:name=".imagehandling.LoadImage" />
+        <activity android:name=".imagehandling.PostLoadImage" />
+        <activity android:name=".imagehandling.CaptureImage" />
+        <activity android:name=".imagehandling.PostCaptureImage"/>
         <activity android:name=".EditDataActivity"/>
     </application>
 

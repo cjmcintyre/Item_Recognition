@@ -4,55 +4,61 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.u3182551.itemrecognition.imagehandling.CaptureImage;
+import com.example.u3182551.itemrecognition.imagehandling.LoadImage;
 
+@SuppressWarnings("ALL")
 public class EditDataActivity extends AppCompatActivity {
 
-    private static final String TAG = "EditDataActivity";
-
-    private Button btnSave,btnDelete,btnCancel;
+    private IRListDbHelper mDatabaseHelper;
     private EditText edit_description;
     private EditText edit_title;
-
-    IRListDbHelper mDatabaseHelper;
     private String description;
-    private String selectedName;
     private long selectedID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ir_edit);
-        btnSave = (Button) findViewById(R.id.btnSave);
-        btnDelete = (Button) findViewById(R.id.btnDelete);
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        edit_description = (EditText) findViewById(R.id.edit_description);
-        edit_title = (EditText) findViewById(R.id.edit_title);
+        Button btnSave = findViewById(R.id.btnSave);
+        Button btnDelete = findViewById(R.id.btnDelete);
+        Button btnCancel = findViewById(R.id.btnCancel);
+        edit_description = findViewById(R.id.edit_description);
+        edit_title = findViewById(R.id.edit_title);
         mDatabaseHelper = new IRListDbHelper(this);
 
         //get the intent extra from the ListDataActivity
         Intent receivedIntent = getIntent();
         Bundle bundle = getIntent().getExtras();
-        description = bundle.getString("imageDescription");
-        //now get the itemID we passed as an extra
-        selectedID = bundle.getLong("dbId"); //NOTE: -1 is just the default value
 
-        //now get the name we passed as an extra
-        selectedName = receivedIntent.getStringExtra("name");
+        assert bundle != null;
+        description = bundle.getString("imageDescription");
+        String title = bundle.getString("titleDescription");
+
+        //Get Details and pass as extra
+        selectedID = bundle.getLong("dbId");
+        String selectedName = receivedIntent.getStringExtra("information");
+        String selectedTitle = receivedIntent.getStringExtra("title");
 
         //set the text to show the current selected name
         edit_description.setText(description);
+        edit_title.setText(title);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String item = edit_description.getText().toString();
-                if(!item.equals("")){
-                    mDatabaseHelper.updateName(item,selectedID,description);
+                String item2 = edit_title.getText().toString();
+                if (!item2.equals("")) {
+                    mDatabaseHelper.updateName(item, item2, selectedID, description);
                     toastMessage("Data Successfully Saved");
                     Intent backtoListView = new Intent(EditDataActivity.this, ListViewActivity.class);
                     startActivity(backtoListView);
@@ -89,6 +95,35 @@ public class EditDataActivity extends AppCompatActivity {
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
+
+    //Menu Bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.commonmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.previous_reco:
+                Intent intent = new Intent(this, ListViewActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.capture_image:
+                Intent intent1 = new Intent(this, CaptureImage.class);
+                startActivity(intent1);
+                return true;
+            case R.id.load_image:
+                Intent intent2 = new Intent(this, LoadImage.class);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    //End Menu Bar
 }
 
 

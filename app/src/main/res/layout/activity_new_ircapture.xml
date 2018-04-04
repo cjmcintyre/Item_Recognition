@@ -1,54 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:padding="16dp">
 
 
     <TextView
-        android:id="@+id/txtDescription"
-        android:layout_width="347dp"
-        android:layout_height="236dp"
+        android:layout_width="331dp"
+        android:layout_height="389dp"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="181dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="132dp"
-        android:text="Description.."
+        android:layout_marginTop="76dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/shape"
+        android:backgroundTintMode="screen"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text='To begin Item Recognition click "Capture" to take a photo with your camera or click "Load" to load an existing image from your gallery.'
+        app:layout_constraintBottom_toTopOf="@+id/buttonCapture"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/buttonCapture"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:layout_marginBottom="32dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:onClick="gotoCaptureImage"
+        android:padding="8dp"
         android:text="Capture"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonLoad"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescription"
-        app:layout_constraintVertical_bias="0.673" />
+        tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/buttonLoad"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="8dp"
+        android:layout_marginEnd="8dp"
         android:onClick="gotoLoadImage"
+        android:padding="8dp"
         android:text="Load"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonCapture"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescription"
-        app:layout_constraintVertical_bias="0.673" />
+        tools:ignore="HardcodedText" />
 
 
 </android.support.constraint.ConstraintLayout>

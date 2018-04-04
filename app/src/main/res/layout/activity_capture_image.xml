@@ -4,18 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.u3182551.itemrecognition.Image_Handling.CaptureImage">
+    android:layout_margin="15dp"
+    android:padding="15dp"
+    tools:context="com.example.u3182551.itemrecognition.imagehandling.CaptureImage">
 
     <ImageView
         android:id="@+id/postcaptureImage"
-        android:layout_width="383dp"
-        android:layout_height="394dp"
+        android:layout_width="333dp"
+        android:layout_height="346dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:contentDescription="postcaptureImage"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
 </android.support.constraint.ConstraintLayout>

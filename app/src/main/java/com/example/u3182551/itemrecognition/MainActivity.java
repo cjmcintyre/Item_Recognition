@@ -7,36 +7,40 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
+import com.example.u3182551.itemrecognition.imagehandling.CaptureImage;
+import com.example.u3182551.itemrecognition.imagehandling.LoadImage;
+
+@SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
     }
-
     //Menu Bar
-        @Override
-        public boolean onCreateOptionsMenu (Menu menu){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.commonmenu, menu);
         return true;
     }
 
-        @Override
-        public boolean onOptionsItemSelected (MenuItem item){
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.about:
-                Toast.makeText(MainActivity.this, "Selected options menu item: About", Toast.LENGTH_SHORT).show();
+            case R.id.previous_reco:
+                Intent intent = new Intent(this, ListViewActivity.class);
+                startActivity(intent);
                 return true;
-            case R.id.help:
-                Toast.makeText(MainActivity.this, "Selected options menu item: Help", Toast.LENGTH_SHORT).show();
+            case R.id.capture_image:
+                Intent intent1 = new Intent(this, CaptureImage.class);
+                startActivity(intent1);
+                return true;
+            case R.id.load_image:
+                Intent intent2 = new Intent(this, LoadImage.class);
+                startActivity(intent2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

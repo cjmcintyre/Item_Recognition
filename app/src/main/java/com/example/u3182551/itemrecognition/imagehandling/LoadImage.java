@@ -1,4 +1,4 @@
-package com.example.u3182551.itemrecognition.Image_Handling;
+package com.example.u3182551.itemrecognition.imagehandling;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,15 +28,12 @@ import java.io.InputStream;
  * Created by corey on 2/04/2018.
  */
 
-
-
-
+@SuppressWarnings({"ALL", "deprecation", "DefaultFileTemplate"})
 public class LoadImage extends NewIRCapture {
-    protected Uri mImageUri;
-    protected Bitmap mBitmap;
-    protected static final int REQUEST_SELECT_IMAGE_IN_ALBUM = 1;
-    IRListDbHelper mDatabaseHelper;
-    long dbId;
+    private static final int REQUEST_SELECT_IMAGE_IN_ALBUM = 1;
+    private Bitmap mBitmap;
+    private IRListDbHelper mDatabaseHelper;
+    private long dbId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,32 +51,32 @@ public class LoadImage extends NewIRCapture {
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == RESULT_OK) {
             // If image is selected successfully, set the image URI and bitmap.
-            mImageUri = data.getData();
+            Uri mImageUri = data.getData();
             mBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
                     mImageUri, getContentResolver());
         }
 
         if (mBitmap != null) {
             // Show the image on screen.
-            ImageView imageView = (ImageView) findViewById(R.id.postloadImage);
+            ImageView imageView = findViewById(R.id.postloadImage);
             imageView.setImageBitmap(mBitmap);
             doAnalyse();
         }
     }
 
-    public void doAnalyse() {
+    private void doAnalyse() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 
 
-        final AsyncTask<InputStream, String, String> visionTask = new AsyncTask<InputStream, String, String>() {
-            ProgressDialog mDialog = new ProgressDialog(LoadImage.this);
+         @SuppressWarnings("deprecation") final AsyncTask<InputStream, String, String> visionTask = new AsyncTask<InputStream, String, String>() {
+            @SuppressWarnings("deprecation")
+            final ProgressDialog mDialog = new ProgressDialog(LoadImage.this);
 
             @Override
             protected String doInBackground(InputStream... params) {
@@ -118,7 +115,8 @@ public class LoadImage extends NewIRCapture {
                 for (Caption caption : result.description.captions) {
                     stringBuilder.append(caption.text);
                     String newEntry = (caption.text);
-                    addData(newEntry);
+                    String newEntry2 = ("Enter Title");
+                    addData(newEntry, newEntry2);
 
                 }
                 textView.setText(stringBuilder);
@@ -126,11 +124,8 @@ public class LoadImage extends NewIRCapture {
 
             }
 
-
-            public void addData(String newEntry) {
-
-                //boolean insertData = mDatabaseHelper.addData(newEntry);
-                long insertId = mDatabaseHelper.addData(newEntry);
+            public void addData(String newEntry, String newEntry2) {
+                long insertId = mDatabaseHelper.addData(newEntry, newEntry2);
                 if (insertId > -1) {
                     toastMessage("Data Successfully Inserted!");
                     dbId=insertId;
@@ -148,35 +143,19 @@ public class LoadImage extends NewIRCapture {
         visionTask.execute(inputStream);
     }
 
-
-/*
-
-    public void SaveData(View v) {
-        setContentView(R.layout.activity_post_load_image);
-        TextView textView = findViewById(R.id.PostLoadText);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        textView.setText(stringBuilder);
-
-    }
-*/
-
-
     private void toastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
 
-    public void EditData(View v) {
-
-                Intent editScreenIntent = new Intent(LoadImage.this, EditDataActivity.class);
-                TextView description = (TextView) findViewById(R.id.PostLoadText);
-
-
-                //     Integer testId =cursor.getInt(cursor.getColumnIndex("ID"));
-                editScreenIntent.putExtra("dbId",dbId);
-                editScreenIntent.putExtra("imageDescription",description.getText());
-                startActivity(editScreenIntent);
+    public void gotowardsEditData(View v) {
+        Intent editScreenIntent = new Intent(LoadImage.this, EditDataActivity.class);
+        TextView description = findViewById(R.id.PostLoadText);
+        TextView title = findViewById(R.id.LoadTitleName);
+        editScreenIntent.putExtra("dbId", dbId);
+        editScreenIntent.putExtra("titleDescription", title.getText());
+        editScreenIntent.putExtra("imageDescription", description.getText());
+        startActivity(editScreenIntent);
             }
 
     }

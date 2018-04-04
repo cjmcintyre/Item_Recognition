@@ -5,6 +5,7 @@ android {
     defaultConfig {
         applicationId "com.example.u3182551.itemrecognition"
         minSdkVersion 27
+        //noinspection OldTargetApi
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"

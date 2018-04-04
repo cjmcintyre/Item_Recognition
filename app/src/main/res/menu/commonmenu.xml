@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
 
     <item
-        android:id="@+id/about"
-        android:title="About" />
+        android:id="@+id/previous_reco"
+        android:checkable="false"
+        android:enabled="true"
+        android:title="Previous Recognitions"
+        tools:ignore="HardcodedText" />
     <item
-        android:id="@+id/help"
-        android:title="Help" />
+        android:id="@+id/capture_image"
+        android:enabled="true"
+        android:title="Capture New Image"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/load_image"
+        android:enabled="true"
+        android:title="Load New Image"
+        tools:ignore="HardcodedText" />
 
 </menu>

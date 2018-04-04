@@ -17,9 +17,9 @@ import java.io.InputStream;
  * Created by u3182551 on 28/03/2018.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class ImageHelper {
     private static final int IMAGE_MAX_SIDE_LENGTH = 1280;
-    private static final double FACE_RECT_SCALE_RATIO = 1.3;
 
     public static Bitmap loadSizeLimitedBitmapFromUri(
             Uri imageUri,
@@ -33,8 +33,9 @@ public class ImageHelper {
 
             int maxSideLength = options.outWidth > options.outHeight ? options.outWidth : options.outHeight;
             options.inSampleSize = 1;
-            options.inSampleSize = calculateSampleSize(maxSideLength, IMAGE_MAX_SIDE_LENGTH);
+            options.inSampleSize = calculateSampleSize(maxSideLength);
             options.inJustDecodeBounds = false;
+            assert imageInputStream != null;
             imageInputStream.close();
 
             imageInputStream = contentResolver.openInputStream(imageUri);
@@ -51,17 +52,16 @@ public class ImageHelper {
             }
         }
 
-    private static int calculateSampleSize(int maxSideLength, int expectedMaxImageSideLength) {
+    private static int calculateSampleSize(int maxSideLength) {
         int inSampleSize = 1;
 
-        while (maxSideLength > 2 * expectedMaxImageSideLength) {
+        while (maxSideLength > 2 * ImageHelper.IMAGE_MAX_SIDE_LENGTH) {
             maxSideLength /= 2;
             inSampleSize *= 2;
         }
 
         return inSampleSize;
     }
-
 
     private static int getImageRotationAngle(
             Uri imageUri, ContentResolver contentResolver) throws IOException {
@@ -96,9 +96,7 @@ public class ImageHelper {
         return angle;
     }
 
-    // Rotate the original bitmap according to the given orientation angle
     private static Bitmap rotateBitmap(Bitmap bitmap, int angle) {
-        // If the rotate angle is 0, then return the original image, else return the rotated image
         if (angle != 0) {
             Matrix matrix = new Matrix();
             matrix.postRotate(angle);

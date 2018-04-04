@@ -4,48 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.u3182551.itemrecognition.Image_Handling.PostLoadImage">
+    android:layout_margin="15dp"
+    android:padding="15dp"
+    tools:context="com.example.u3182551.itemrecognition.imagehandling.LoadImage">
 
     <TextView
         android:id="@+id/PostLoadText"
-        android:layout_width="313dp"
-        android:layout_height="260dp"
+        android:layout_width="0dp"
+        android:layout_height="295dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/shape"
         android:gravity="center"
+        android:padding="8dp"
+        android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Medium"
         app:layout_constraintBottom_toTopOf="@+id/LoadbtnEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoadTitleName"
-        app:layout_constraintVertical_bias="0.712" />
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/LoadTitleName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/shape"
+        android:gravity="center"
+        android:padding="8dp"
         android:text="Item Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/LoadbtnEdit"
+        android:onClick="gotowardsEditData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="EditData"
         android:text="Edit"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
+
 </android.support.constraint.ConstraintLayout>
