@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.u3182551.itemrecognition.CaptureImage">
+    tools:context="com.example.u3182551.itemrecognition.Image_Handling.CaptureImage">
 
     <ImageView
         android:id="@+id/postcaptureImage"

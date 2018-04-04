@@ -1,85 +1,76 @@
-package com.example.u3182551.itemrecognition;
+package com.example.u3182551.itemrecognition.Image_Handling;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.u3182551.itemrecognition.EditDataActivity;
+import com.example.u3182551.itemrecognition.IRListDbHelper;
+import com.example.u3182551.itemrecognition.NewIRCapture;
+import com.example.u3182551.itemrecognition.R;
 import com.google.gson.Gson;
 import com.microsoft.projectoxford.vision.contract.AnalysisResult;
 import com.microsoft.projectoxford.vision.contract.Caption;
-
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-/**
- * Created by corey on 2/04/2018.
- */
+public class CaptureImage extends NewIRCapture {
 
-
-
-
-public class LoadImage extends NewIRCapture {
     protected Uri mImageUri;
     protected Bitmap mBitmap;
-    protected static final int REQUEST_SELECT_IMAGE_IN_ALBUM = 1;
+    protected static final int REQUEST_TAKE_PHOTO = 0;
     IRListDbHelper mDatabaseHelper;
     long dbId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_load_image);
+        setContentView(R.layout.activity_capture_image);
         mDatabaseHelper = new IRListDbHelper(this);
 
 
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_SELECT_IMAGE_IN_ALBUM);
-
-        }
-
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
     }
-
+}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == RESULT_OK) {
-            // If image is selected successfully, set the image URI and bitmap.
-            mImageUri = data.getData();
-            mBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
-                    mImageUri, getContentResolver());
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            mBitmap = (Bitmap) extras.get("data");
         }
 
         if (mBitmap != null) {
             // Show the image on screen.
-            ImageView imageView = (ImageView) findViewById(R.id.postloadImage);
+            ImageView imageView = (ImageView) findViewById(R.id.postcaptureImage);
             imageView.setImageBitmap(mBitmap);
             doAnalyse();
+
         }
     }
 
-    public void doAnalyse() {
+
+    public void doAnalyse(){
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 
 
         final AsyncTask<InputStream, String, String> visionTask = new AsyncTask<InputStream, String, String>() {
-            ProgressDialog mDialog = new ProgressDialog(LoadImage.this);
+            ProgressDialog mDialog = new ProgressDialog(CaptureImage.this);
+
 
             @Override
             protected String doInBackground(InputStream... params) {
@@ -106,13 +97,13 @@ public class LoadImage extends NewIRCapture {
             @Override
             public void onPostExecute(String s) {
 
-                setContentView(R.layout.activity_post_load_image);
+                setContentView(R.layout.activity_post_capture_image);
 
 
                 mDialog.dismiss();
 
                 AnalysisResult result = new Gson().fromJson(s, AnalysisResult.class);
-                TextView textView = findViewById(R.id.PostLoadText);
+                TextView textView = findViewById(R.id.PostCaptureText);
                 StringBuilder stringBuilder = new StringBuilder();
 
                 for (Caption caption : result.description.captions) {
@@ -148,34 +139,14 @@ public class LoadImage extends NewIRCapture {
         visionTask.execute(inputStream);
     }
 
-
-/*
-
-    public void SaveData(View v) {
-        setContentView(R.layout.activity_post_load_image);
-        TextView textView = findViewById(R.id.PostLoadText);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        textView.setText(stringBuilder);
-
-    }
-*/
-
-
     private void toastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
+    public void gotoEditData(View v) {
 
-    public void EditData(View v) {
-        Button LoadbtnEdit;
-
-        LoadbtnEdit = (Button) findViewById(R.id.LoadbtnEdit);
-        LoadbtnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent editScreenIntent = new Intent(LoadImage.this, EditDataActivity.class);
-                TextView description = (TextView) findViewById(R.id.PostLoadText);
+                Intent editScreenIntent = new Intent(CaptureImage.this, EditDataActivity.class);
+                TextView description = (TextView) findViewById(R.id.PostCaptureText);
 
 
                 //     Integer testId =cursor.getInt(cursor.getColumnIndex("ID"));
@@ -183,7 +154,7 @@ public class LoadImage extends NewIRCapture {
                 editScreenIntent.putExtra("imageDescription",description.getText());
                 startActivity(editScreenIntent);
             }
-        });
-    }
+        }
 
-}
+
+

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.u3182551.itemrecognition.PostLoadImage">
+    tools:context="com.example.u3182551.itemrecognition.Image_Handling.PostLoadImage">
 
     <TextView
         android:id="@+id/PostLoadText"
@@ -15,6 +15,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:gravity="center"
+        android:textAppearance="@android:style/TextAppearance.Medium"
         app:layout_constraintBottom_toTopOf="@+id/LoadbtnEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,11 +27,14 @@
         android:id="@+id/LoadTitleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:text="Item Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="122dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/LoadbtnEdit"

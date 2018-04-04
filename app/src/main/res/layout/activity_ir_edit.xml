@@ -10,48 +10,75 @@
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="144dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_description"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@android:color/holo_red_dark"
         android:text="Delete"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/edit_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:gravity="center"
         android:text="Edit Title"
         app:layout_constraintBottom_toTopOf="@+id/edit_description"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="98dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edit_description"
         android:layout_width="376dp"
-        android:layout_height="484dp"
-        android:layout_marginBottom="40dp"
+        android:layout_height="156dp"
+        android:layout_marginBottom="140dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
+        android:gravity="center|bottom"
         android:inputType="textPersonName"
+        android:text="test"
         app:layout_constraintBottom_toTopOf="@+id/btnDelete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintStart_toEndOf="@+id/btnSave"
+        app:layout_constraintTop_toBottomOf="@+id/edit_description"
+        app:layout_constraintVertical_bias="0.209" />
 </android.support.constraint.ConstraintLayout>

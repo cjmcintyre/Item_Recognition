@@ -23,10 +23,10 @@
         <activity android:name=".ListViewActivity" />
         <activity android:name=".IRActivity" />
         <activity android:name=".NewIRCapture" />
-        <activity android:name=".LoadImage" />
-        <activity android:name=".PostLoadImage" />
-        <activity android:name=".CaptureImage" />
-        <activity android:name=".PostCaptureImage"/>
+        <activity android:name=".Image_Handling.LoadImage" />
+        <activity android:name=".Image_Handling.PostLoadImage" />
+        <activity android:name=".Image_Handling.CaptureImage" />
+        <activity android:name=".Image_Handling.PostCaptureImage"/>
         <activity android:name=".EditDataActivity"/>
     </application>
 

@@ -14,7 +14,7 @@ public class EditDataActivity extends AppCompatActivity {
 
     private static final String TAG = "EditDataActivity";
 
-    private Button btnSave,btnDelete;
+    private Button btnSave,btnDelete,btnCancel;
     private EditText edit_description;
     private EditText edit_title;
 
@@ -29,6 +29,7 @@ public class EditDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ir_edit);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnCancel = (Button) findViewById(R.id.btnCancel);
         edit_description = (EditText) findViewById(R.id.edit_description);
         edit_title = (EditText) findViewById(R.id.edit_title);
         mDatabaseHelper = new IRListDbHelper(this);
@@ -57,7 +58,7 @@ public class EditDataActivity extends AppCompatActivity {
                     startActivity(backtoListView);
 
                 }else{
-                    toastMessage("You must enter a name");
+                    toastMessage("Data cannot be empty");
                 }
             }
         });
@@ -67,14 +68,21 @@ public class EditDataActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mDatabaseHelper.deleteName(selectedID,description);
                 edit_description.setText("");
-                toastMessage("removed from database");
-
+                toastMessage("Deleted from Database");
                 Intent backtoListView = new Intent(EditDataActivity.this, ListViewActivity.class);
                 startActivity(backtoListView);
+
             }
         });
 
-
+        btnCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent backtoListView = new Intent(EditDataActivity.this, ListViewActivity.class);
+                startActivity(backtoListView);
+                toastMessage("No Changes made");
+            }
+        });
 
     }
 

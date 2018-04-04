@@ -1,11 +1,14 @@
-package com.example.u3182551.itemrecognition;
+package com.example.u3182551.itemrecognition.Image_Handling;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class PostCaptureImage extends AppCompatActivity {
+import com.example.u3182551.itemrecognition.NewIRCapture;
+import com.example.u3182551.itemrecognition.R;
+
+public class PostCaptureImage extends NewIRCapture {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,9 +16,4 @@ public class PostCaptureImage extends AppCompatActivity {
         setContentView(R.layout.activity_post_capture_image);
     }
 
-    public void gotoEditData2(View v) {
-        Intent intent = new Intent(this, EditDataActivity.class);
-        startActivity(intent);
-
-    }
 }
